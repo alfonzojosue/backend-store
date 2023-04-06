@@ -1,12 +1,9 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
-const sequelize = new Sequelize('sqlite::memory:');
 import { ProductAttributes } from './interface/products.interface';
 
-
+const sequelize = new Sequelize('sqlite::memory:');
 
 class Product extends Model<ProductAttributes> {}
-
-
 Product.init(
     {
     id: {
