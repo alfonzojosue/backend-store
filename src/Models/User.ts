@@ -1,40 +1,37 @@
-import { Sequelize, DataTypes, Model } from 'sequelize';
-import { UserAttributes } from './interface/users.interface';
+import
+{   Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    CreateDateColumn,
+    UpdateDateColumn} from "typeorm"
 
-const sequelize = new Sequelize('sqlite::memory:');
+@Entity("user")
+export class User {
+    @PrimaryGeneratedColumn("uuid")
+    id: string
 
-class User extends Model<UserAttributes>{}
+    @Column({nullable:false})
+    name: string
 
-User.init(
-    {
-    id:{
-        type: DataTypes.UUID,
-        allowNull: false,
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    name: {
-        type: DataTypes.STRING,
-        allowNull:false,
-    },
-    isAdmin:{
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-    },
-    banned:{
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-    },
-    img: {
-        type:DataTypes.STRING,
-        defaultValue: ""
+    @Column({nullable:false})
+    email: string
 
-    },
-    deleteAt:{
-        type: DataTypes.STRING,
-    }
-    },
-    {sequelize}
-)
+    @Column({default: false})
+    isAdmin: boolean
+
+    @Column({default: "https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png"})
+    img: string
+
+    @Column({default: false})
+    banned: boolean
+
+    @CreateDateColumn()
+    created_at: Date;
+
+    @UpdateDateColumn()
+    updated_at: Date;
+
+    @Column({ type: 'timestamptz' }) // Recommended
+    date_time_with_timezone: Date;
+
+}
