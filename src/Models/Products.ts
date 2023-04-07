@@ -26,8 +26,8 @@ export class Product extends BaseEntity {
     @Column()
     characteristic: string
 
-    @Column("enum")
-    category: "shirt" | "jacket" | "shoes"
+    @Column()
+    category: string
 
     @Column()
     stock: number
