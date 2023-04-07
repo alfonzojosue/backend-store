@@ -18,11 +18,11 @@ __decorate([
     __metadata("design:type", String)
 ], Product.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: false }),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Product.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: false }),
+    (0, typeorm_1.Column)({ type: 'decimal', precision: 5, scale: 2, default: 0, }),
     __metadata("design:type", Number)
 ], Product.prototype, "price", void 0);
 __decorate([
@@ -57,11 +57,6 @@ __decorate([
     (0, typeorm_1.UpdateDateColumn)(),
     __metadata("design:type", Date)
 ], Product.prototype, "updated_at", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: 'timestamptz' }) // Recommended
-    ,
-    __metadata("design:type", Date)
-], Product.prototype, "date_time_with_timezone", void 0);
 Product = __decorate([
     (0, typeorm_1.Entity)("product")
 ], Product);

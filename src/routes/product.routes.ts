@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { createProduct } from "../Controllers/productControllers";
+import { createProduct, getProducts } from "../Controllers/productControllers";
 
 
 const router = Router()
 
-router.get('/')
+router.get('/', getProducts)
 router.get('./:id')
 router.post('/', createProduct)
 
