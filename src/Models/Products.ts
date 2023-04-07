@@ -1,34 +1,47 @@
-import { Sequelize, DataTypes, Model } from 'sequelize';
-import { ProductAttributes } from './interface/products.interface';
+import
+{   Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    CreateDateColumn,
+    UpdateDateColumn,
+    BaseEntity} from "typeorm"
 
-const sequelize = new Sequelize('sqlite::memory:');
+@Entity("product")
+export class Product extends BaseEntity {
+    @PrimaryGeneratedColumn("uuid")
+    id: string
 
-class Product extends Model<ProductAttributes> {}
-Product.init(
-    {
-    id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
-        primaryKey: true,
-    },
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        set(value: string) {
-        this.setDataValue('name', value.toUpperCase());
-        },
-    },
-    price: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    img:{
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: false,
-    }
-    },
-    { sequelize }
-);
+    @Column({nullable:false})
+    name: string
 
-export default Product;
+    @Column({nullable:false})
+    price: number
+
+    @Column()
+    img: string
+
+    @Column()
+    size: string
+
+    @Column()
+    characteristic: string
+
+    @Column("enum")
+    category: "shirt" | "jacket" | "shoes"
+
+    @Column()
+    stock: number
+
+    @Column({default:false})
+    favorites: boolean
+
+    @CreateDateColumn()
+    created_at: Date;
+
+    @UpdateDateColumn()
+    updated_at: Date;
+
+    @Column({ type: 'timestamptz' }) // Recommended
+    date_time_with_timezone: Date;
+
+}
