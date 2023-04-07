@@ -11,10 +11,10 @@ export class Product extends BaseEntity {
     @PrimaryGeneratedColumn("uuid")
     id: string
 
-    @Column({nullable:false})
+    @Column()
     name: string
 
-    @Column({nullable:false})
+    @Column({ type: 'decimal', precision: 5, scale: 2, default: 0, })
     price: number
 
     @Column()
@@ -40,8 +40,5 @@ export class Product extends BaseEntity {
 
     @UpdateDateColumn()
     updated_at: Date;
-
-    @Column({ type: 'timestamptz' }) // Recommended
-    date_time_with_timezone: Date;
 
 }
