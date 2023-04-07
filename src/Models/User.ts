@@ -4,7 +4,10 @@ import
     PrimaryGeneratedColumn,
     CreateDateColumn,
     UpdateDateColumn,
-    BaseEntity} from "typeorm"
+    BaseEntity,
+    ManyToMany,
+    JoinTable} from "typeorm"
+import { Product } from "./Products"
 
 @Entity("user")
 export class User extends BaseEntity {
@@ -35,4 +38,7 @@ export class User extends BaseEntity {
     @Column({ type: 'timestamptz' }) // Recommended
     date_time_with_timezone: Date;
 
+    @ManyToMany(() => Product)
+    @JoinTable()
+    products: Product[]
 }
