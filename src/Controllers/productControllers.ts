@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import { Product } from "../Models/Products"
+import { where } from "sequelize"
 
 export const getProducts = async(req: Request, res:Response) => {
     const product = await Product.find()
@@ -29,4 +30,25 @@ try {
     } catch (error) {
             res.status(400).send(error)
     }
+}
+
+
+export const getProductById = async (req: Request, res: Response) => {
+   const {id} = req.params
+   try {
+    if(id){
+        const product = await Product.find(
+            {
+                where: {
+                    id : id
+                }
+            }
+        )
+        res.status(200).json(product)
+    }else {
+        res.status(200).json("ID no existe")
+    }
+} catch (error) {
+        res.status(400).json(error)
+   }
 }

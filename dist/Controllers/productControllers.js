@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createProduct = exports.getProducts = void 0;
+exports.getProductById = exports.createProduct = exports.getProducts = void 0;
 const Products_1 = require("../Models/Products");
 const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const product = yield Products_1.Product.find();
@@ -38,3 +38,23 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.createProduct = createProduct;
+const getProductById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        if (id) {
+            const product = yield Products_1.Product.find({
+                where: {
+                    id: id
+                }
+            });
+            res.status(200).json(product);
+        }
+        else {
+            res.status(200).json("ID no existe");
+        }
+    }
+    catch (error) {
+        res.status(400).json(error);
+    }
+});
+exports.getProductById = getProductById;
