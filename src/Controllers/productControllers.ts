@@ -3,9 +3,19 @@ import { Product } from "../Models/Products"
 import { Products } from "../connection/connection"
 
 export const getProducts = async(req: Request, res:Response) => {
+    const {name} = req.query
     const product = await Product.find()
-    return res.json(product)
-
+    try {
+        if(name){
+            const filtername = name.toString()
+            const result = product.filter(item => item.name.toLowerCase().includes(filtername.toLowerCase()) )
+            res.status(200).json(result)
+        }else {
+            res.status(200).json(product)
+        }
+    } catch (error) {
+        res.status(400).json(error)
+    }
 }
 
 export const createProduct = async (req: Request, res:Response) => {
@@ -65,12 +75,5 @@ export const getProductByCategory = async(req: Request, res: Response) => {
     } catch (error) {
     res.status(400).json(error)
     }
-}
-
-export const getProductByName = async(req: Request, res: Response) => {
-    const {name} = req.query
-    const product = await Products()
-    console.log(product)
-   return res.status(200).json("hola")
 }
 
