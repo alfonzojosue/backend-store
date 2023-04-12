@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import { Product } from "../Models/Products"
-import { where } from "sequelize"
+import { Products } from "../connection/connection"
 
 export const getProducts = async(req: Request, res:Response) => {
     const product = await Product.find()
@@ -34,8 +34,8 @@ try {
 
 
 export const getProductById = async (req: Request, res: Response) => {
-   const {id} = req.params
-   try {
+    const {id} = req.params
+    try {
     if(id){
         const product = await Product.find(
             {
@@ -50,24 +50,40 @@ export const getProductById = async (req: Request, res: Response) => {
     }
 } catch (error) {
         res.status(400).json(error)
-   }
+}
 }
 
 export const getProductByCategory = async(req: Request, res: Response) => {
     const {category} = req.params
+    const product = await Products()
     try {
         if(category){
-            const product = await Product.find(
-                {
-                    where : {
-                        category: category
-                    }
-                }
-            )
-            res.status(200).json(product)
+            const result = product.filter(item => item.category == category)
+            res.status(200).json(result)
         }
 
     } catch (error) {
-        res.status(400).json(error)
+    res.status(400).json(error)
     }
+}
+
+export const getProductByName = async(req: Request, res: Response) => {
+    const {name} = req.query
+    
+
+    const data = await Products()
+    console.log(data)
+    if(name){
+        let filterName = name.toString()
+        console.log(filterName)
+        const response = data.filter(e => e.name.toLowerCase().includes(filterName.toLowerCase()))
+        if(response.length > 0 ){
+        
+        return  res.status(200).json(data)
+        }else {
+        return  res.status(404).json(`la raza ${name} no se existe`)
+        }
+
+   } 
+
 }
