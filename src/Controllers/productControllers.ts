@@ -40,7 +40,7 @@ export const getProductById = async (req: Request, res: Response) => {
         const product = await Product.find(
             {
                 where: {
-                    category : id
+                    id : id
                 }
             }
         )
@@ -69,21 +69,8 @@ export const getProductByCategory = async(req: Request, res: Response) => {
 
 export const getProductByName = async(req: Request, res: Response) => {
     const {name} = req.query
-    
-
-    const data = await Products()
-    console.log(data)
-    if(name){
-        let filterName = name.toString()
-        console.log(filterName)
-        const response = data.filter(e => e.name.toLowerCase().includes(filterName.toLowerCase()))
-        if(response.length > 0 ){
-        
-        return  res.status(200).json(data)
-        }else {
-        return  res.status(404).json(`la raza ${name} no se existe`)
-        }
-
-   } 
-
+    const product = await Products()
+    console.log(product)
+   return res.status(200).json("hola")
 }
+

@@ -5,3 +5,4 @@ export const Products = () => {
     const product = Product.find()
     return product
 }
+
