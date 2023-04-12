@@ -40,7 +40,7 @@ export const getProductById = async (req: Request, res: Response) => {
         const product = await Product.find(
             {
                 where: {
-                    id : id
+                    category : id
                 }
             }
         )
@@ -51,4 +51,23 @@ export const getProductById = async (req: Request, res: Response) => {
 } catch (error) {
         res.status(400).json(error)
    }
+}
+
+export const getProductByCategory = async(req: Request, res: Response) => {
+    const {category} = req.params
+    try {
+        if(category){
+            const product = await Product.find(
+                {
+                    where : {
+                        category: category
+                    }
+                }
+            )
+            res.status(200).json(product)
+        }
+
+    } catch (error) {
+        res.status(400).json(error)
+    }
 }
